@@ -4,6 +4,17 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import './index.css';
 import App from './App.tsx';
 
+// Vite preload 에러 처리
+window.addEventListener('error', (event) => {
+    if (event.message.includes('Failed to fetch dynamically imported module')) {
+        console.error('모듈 로딩 실패:', event);
+        // 1초 후 페이지 새로고침
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+    }
+});
+
 const theme = extendTheme({
     styles: {
         global: {

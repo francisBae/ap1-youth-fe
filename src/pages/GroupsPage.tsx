@@ -16,19 +16,52 @@ import {
 } from '@chakra-ui/react';
 import { FaPray, FaMusic, FaUsers } from 'react-icons/fa';
 import { Link as RouterLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const GroupsPage = () => {
     const cardBorder = useColorModeValue('gray.200', 'gray.600');
     const accentColor = '#bfa16c';
     const pageBg = '#fcfbf9';
     const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({});
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+    // 이미지 프리로드
+    useEffect(() => {
+        const preloadImages = async () => {
+            const imagePromises = groups.map((group) => {
+                return new Promise<HTMLImageElement>((resolve, reject) => {
+                    const img = new window.Image();
+                    img.src = group.image;
+                    img.onload = () => {
+                        setImagesLoaded(prev => ({
+                            ...prev,
+                            [group.title]: true
+                        }));
+                        resolve(img);
+                    };
+                    img.onerror = reject;
+                });
+            });
+
+            try {
+                await Promise.all(imagePromises);
+            } catch (error) {
+                console.error('이미지 로딩 실패:', error);
+            } finally {
+                setIsInitialLoad(false);
+            }
+        };
+
+        preloadImages();
+    }, []);
 
     const handleImageLoad = (title: string) => {
-        setImagesLoaded((prev) => ({
-            ...prev,
-            [title]: true,
-        }));
+        if (!imagesLoaded[title]) {
+            setImagesLoaded((prev) => ({
+                ...prev,
+                [title]: true,
+            }));
+        }
     };
 
     const groups = [
@@ -107,7 +140,7 @@ const GroupsPage = () => {
                         >
                             {/* 단체 이미지 */}
                             <Box h="240px" position="relative" flexShrink={0}>
-                                {!imagesLoaded[group.title] && (
+                                {(!imagesLoaded[group.title] || isInitialLoad) && (
                                     <Skeleton
                                         position="absolute"
                                         top={0}
@@ -125,7 +158,7 @@ const GroupsPage = () => {
                                     h="100%"
                                     objectFit="cover"
                                     fallbackSrc="https://via.placeholder.com/400x200?text=단체+이미지"
-                                    transition="transform 0.3s ease"
+                                    transition="opacity 0.3s ease"
                                     _groupHover={{ transform: 'scale(1.05)' }}
                                     onLoad={() => handleImageLoad(group.title)}
                                     opacity={imagesLoaded[group.title] ? 1 : 0}
@@ -160,7 +193,7 @@ const GroupsPage = () => {
                                 display="flex"
                                 flexDirection="column"
                             >
-                                {!imagesLoaded[group.title] ? (
+                                {(!imagesLoaded[group.title] || isInitialLoad) ? (
                                     <>
                                         <Skeleton height="40px" mb={4} />
                                         <SkeletonText noOfLines={3} spacing={4} />

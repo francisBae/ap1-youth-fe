@@ -17,6 +17,7 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import type { ReactNode } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { FaInstagram, FaYoutube, FaCommentDots } from 'react-icons/fa';
+import { useEffect } from 'react';
 
 interface LayoutProps {
     children: ReactNode;
@@ -29,6 +30,23 @@ const Layout = ({ children }: LayoutProps) => {
     const borderColor = useColorModeValue('gray.200', 'gray.700');
     const dimBgColor = useColorModeValue('rgba(0, 0, 0, 0.4)', 'rgba(0, 0, 0, 0.6)');
     const accentColor = '#bfa16c';
+
+    // 브라우저의 스크롤 복원 동작 비활성화
+    useEffect(() => {
+        if ('scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual';
+        }
+
+        // 페이지 로드 시 스크롤 위치 초기화
+        const handleLoad = () => {
+            if (location.pathname === '/groups') {
+                window.scrollTo(0, 0);
+            }
+        };
+
+        window.addEventListener('load', handleLoad);
+        return () => window.removeEventListener('load', handleLoad);
+    }, [location.pathname]);
 
     const menuItems = [
         // { label: '홈', href: '/' },
