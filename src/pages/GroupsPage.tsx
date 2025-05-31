@@ -11,14 +11,25 @@ import {
     Image,
     Flex,
     Badge,
+    Skeleton,
+    SkeletonText,
 } from '@chakra-ui/react';
 import { FaPray, FaMusic, FaUsers } from 'react-icons/fa';
 import { Link as RouterLink } from 'react-router-dom';
+import { useState } from 'react';
 
 const GroupsPage = () => {
     const cardBorder = useColorModeValue('gray.200', 'gray.600');
     const accentColor = '#bfa16c';
     const pageBg = '#fcfbf9';
+    const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({});
+
+    const handleImageLoad = (title: string) => {
+        setImagesLoaded((prev) => ({
+            ...prev,
+            [title]: true,
+        }));
+    };
 
     const groups = [
         {
@@ -96,6 +107,17 @@ const GroupsPage = () => {
                         >
                             {/* 단체 이미지 */}
                             <Box h="240px" position="relative" flexShrink={0}>
+                                {!imagesLoaded[group.title] && (
+                                    <Skeleton
+                                        position="absolute"
+                                        top={0}
+                                        left={0}
+                                        w="100%"
+                                        h="100%"
+                                        startColor="gray.100"
+                                        endColor="gray.200"
+                                    />
+                                )}
                                 <Image
                                     src={group.image}
                                     alt={group.title}
@@ -105,6 +127,10 @@ const GroupsPage = () => {
                                     fallbackSrc="https://via.placeholder.com/400x200?text=단체+이미지"
                                     transition="transform 0.3s ease"
                                     _groupHover={{ transform: 'scale(1.05)' }}
+                                    onLoad={() => handleImageLoad(group.title)}
+                                    opacity={imagesLoaded[group.title] ? 1 : 0}
+                                    position="relative"
+                                    zIndex={1}
                                 />
                                 <Badge
                                     position="absolute"
@@ -119,6 +145,7 @@ const GroupsPage = () => {
                                     fontSize="sm"
                                     fontWeight="medium"
                                     boxShadow="sm"
+                                    zIndex={2}
                                 >
                                     {group.badge}
                                 </Badge>
@@ -133,62 +160,77 @@ const GroupsPage = () => {
                                 display="flex"
                                 flexDirection="column"
                             >
-                                <Flex align="center" gap={3}>
-                                    <Box p={2} borderRadius="lg" bg={`${accentColor}15`} color={accentColor}>
-                                        <Icon as={group.icon} w={6} h={6} />
-                                    </Box>
-                                    <Heading as="h2" size="lg" color="gray.800" fontWeight="bold">
-                                        {group.title}
-                                    </Heading>
-                                </Flex>
-
-                                <Text color="gray.600" fontSize="md" lineHeight="tall">
-                                    {group.description}
-                                </Text>
-
-                                <Box as="ul" pl={4} mt={2} listStyleType="none">
-                                    {group.details.map((detail, index) => (
-                                        <Box
-                                            as="li"
-                                            key={index}
-                                            color="gray.600"
-                                            fontSize="md"
-                                            mb={3}
-                                            position="relative"
-                                            pl={4}
-                                            _before={{
-                                                content: '""',
-                                                position: 'absolute',
-                                                left: 0,
-                                                top: '0.5em',
-                                                width: '6px',
-                                                height: '6px',
-                                                borderRadius: '50%',
-                                                bg: accentColor,
-                                            }}
-                                        >
-                                            {detail}
+                                {!imagesLoaded[group.title] ? (
+                                    <>
+                                        <Skeleton height="40px" mb={4} />
+                                        <SkeletonText noOfLines={3} spacing={4} />
+                                        <Box mt={4}>
+                                            <Skeleton height="20px" mb={2} />
+                                            <Skeleton height="20px" mb={2} />
+                                            <Skeleton height="20px" />
                                         </Box>
-                                    ))}
-                                </Box>
+                                        <Skeleton height="48px" mt="auto" />
+                                    </>
+                                ) : (
+                                    <>
+                                        <Flex align="center" gap={3}>
+                                            <Box p={2} borderRadius="lg" bg={`${accentColor}15`} color={accentColor}>
+                                                <Icon as={group.icon} w={6} h={6} />
+                                            </Box>
+                                            <Heading as="h2" size="lg" color="gray.800" fontWeight="bold">
+                                                {group.title}
+                                            </Heading>
+                                        </Flex>
 
-                                <Button
-                                    colorScheme="gray"
-                                    variant="outline"
-                                    size="lg"
-                                    mt="auto"
-                                    borderColor={accentColor}
-                                    color={accentColor}
-                                    _hover={{
-                                        bg: accentColor,
-                                        color: 'white',
-                                        transform: 'translateY(-2px)',
-                                        shadow: 'md',
-                                    }}
-                                    transition="all 0.2s"
-                                >
-                                    자세히 보기
-                                </Button>
+                                        <Text color="gray.600" fontSize="md" lineHeight="tall">
+                                            {group.description}
+                                        </Text>
+
+                                        <Box as="ul" pl={4} mt={2} listStyleType="none">
+                                            {group.details.map((detail, index) => (
+                                                <Box
+                                                    as="li"
+                                                    key={index}
+                                                    color="gray.600"
+                                                    fontSize="md"
+                                                    mb={3}
+                                                    position="relative"
+                                                    pl={4}
+                                                    _before={{
+                                                        content: '""',
+                                                        position: 'absolute',
+                                                        left: 0,
+                                                        top: '0.5em',
+                                                        width: '6px',
+                                                        height: '6px',
+                                                        borderRadius: '50%',
+                                                        bg: accentColor,
+                                                    }}
+                                                >
+                                                    {detail}
+                                                </Box>
+                                            ))}
+                                        </Box>
+
+                                        <Button
+                                            colorScheme="gray"
+                                            variant="outline"
+                                            size="lg"
+                                            mt="auto"
+                                            borderColor={accentColor}
+                                            color={accentColor}
+                                            _hover={{
+                                                bg: accentColor,
+                                                color: 'white',
+                                                transform: 'translateY(-2px)',
+                                                shadow: 'md',
+                                            }}
+                                            transition="all 0.2s"
+                                        >
+                                            자세히 보기
+                                        </Button>
+                                    </>
+                                )}
                             </VStack>
                         </Box>
                     ))}

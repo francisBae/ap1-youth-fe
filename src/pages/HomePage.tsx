@@ -98,29 +98,60 @@ const HomePage = () => {
             {/* 특징 섹션 */}
             <Container maxW="container.xl" py={16}>
                 <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={10}>
-                    {features.map((feature, index) => (
-                        <VStack
-                            key={index}
-                            p={8}
-                            bg="white"
-                            rounded="2xl"
-                            boxShadow="lg"
-                            spacing={6}
-                            align="center"
-                            as={RouterLink}
-                            to={feature.link}
-                            _hover={{ transform: 'translateY(-6px)', shadow: '2xl', bg: '#f8f6f2' }}
-                            transition="all 0.2s"
-                        >
-                            <Icon as={feature.icon} w={12} h={12} color="#bfa16c" />
-                            <Heading size="md" color="gray.800" fontWeight="bold">
-                                {feature.title}
-                            </Heading>
-                            <Text color="gray.600" fontSize="md" textAlign="center">
-                                {feature.description}
-                            </Text>
-                        </VStack>
-                    ))}
+                    {features.map((feature, index) => {
+                        // 주보만 외부 링크로 새 창 열기
+                        if (feature.title === '주보') {
+                            return (
+                                <VStack
+                                    key={index}
+                                    p={8}
+                                    bg="white"
+                                    rounded="2xl"
+                                    boxShadow="lg"
+                                    spacing={6}
+                                    align="center"
+                                    as="a"
+                                    href="https://www.ap1.or.kr/bbs/board.php?bo_table=newsletter"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    _hover={{ transform: 'translateY(-6px)', shadow: '2xl', bg: '#f8f6f2' }}
+                                    transition="all 0.2s"
+                                >
+                                    <Icon as={feature.icon} w={12} h={12} color="#bfa16c" />
+                                    <Heading size="md" color="gray.800" fontWeight="bold">
+                                        {feature.title}
+                                    </Heading>
+                                    <Text color="gray.600" fontSize="md" textAlign="center">
+                                        {feature.description}
+                                    </Text>
+                                </VStack>
+                            );
+                        }
+                        // 나머지는 내부 라우팅
+                        return (
+                            <VStack
+                                key={index}
+                                p={8}
+                                bg="white"
+                                rounded="2xl"
+                                boxShadow="lg"
+                                spacing={6}
+                                align="center"
+                                as={RouterLink}
+                                to={feature.link}
+                                _hover={{ transform: 'translateY(-6px)', shadow: '2xl', bg: '#f8f6f2' }}
+                                transition="all 0.2s"
+                            >
+                                <Icon as={feature.icon} w={12} h={12} color="#bfa16c" />
+                                <Heading size="md" color="gray.800" fontWeight="bold">
+                                    {feature.title}
+                                </Heading>
+                                <Text color="gray.600" fontSize="md" textAlign="center">
+                                    {feature.description}
+                                </Text>
+                            </VStack>
+                        );
+                    })}
                 </SimpleGrid>
             </Container>
         </Box>

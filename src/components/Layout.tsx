@@ -36,10 +36,9 @@ const Layout = ({ children }: LayoutProps) => {
         { label: '미사/성사 안내', href: '/mass' },
         // { label: '성사 안내', href: '/sacraments' },
         { label: '미사통상문', href: '/mass-ordinary' },
-        { label: '주보', href: '/newsletter' },
         { label: '단체 소개', href: '/groups' },
         { label: '갤러리', href: '/gallery' },
-        { label: '기도문', href: '/prayers' },
+        // { label: '기도문', href: '/prayers' },
         { label: '오시는 길', href: '/location' },
     ];
 
@@ -79,6 +78,50 @@ const Layout = ({ children }: LayoutProps) => {
                         <Stack direction="row" spacing={8} display={{ base: 'none', md: 'flex' }}>
                             {menuItems.map((item) => {
                                 const isActive = location.pathname === item.href;
+                                // '오시는 길'만 외부 링크로 새 창 열기
+                                if (item.label === '오시는 길') {
+                                    return (
+                                        <Button
+                                            key={item.href}
+                                            as="a"
+                                            href="http://www.ap1.or.kr/location.php"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            variant="ghost"
+                                            color={isActive ? accentColor : '#6b4f27'}
+                                            fontFamily="'Noto Sans KR', sans-serif"
+                                            fontWeight={isActive ? '600' : '500'}
+                                            letterSpacing="-0.02em"
+                                            fontSize="md"
+                                            bg="transparent"
+                                            position="relative"
+                                            _after={{
+                                                content: '""',
+                                                position: 'absolute',
+                                                bottom: '-2px',
+                                                left: '50%',
+                                                transform: isActive ? 'translateX(-50%)' : 'translateX(-50%) scaleX(0)',
+                                                width: '100%',
+                                                height: '2px',
+                                                bg: accentColor,
+                                                transition: 'transform 0.2s ease-in-out',
+                                            }}
+                                            _hover={{
+                                                color: accentColor,
+                                                bg: 'transparent',
+                                                textDecoration: 'none',
+                                                transform: 'translateY(-1px)',
+                                                _after: {
+                                                    transform: 'translateX(-50%) scaleX(1)',
+                                                },
+                                            }}
+                                            transition="all 0.2s ease-in-out"
+                                        >
+                                            {item.label}
+                                        </Button>
+                                    );
+                                }
+                                // 나머지는 내부 라우팅
                                 return (
                                     <Button
                                         key={item.href}

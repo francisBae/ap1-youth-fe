@@ -15,7 +15,7 @@ import PrayersPage from './pages/PrayersPage';
 // import SacramentsPage from './pages/SacramentsPage'
 import MassOrdinaryPage from './pages/MassOrdinaryPage';
 import LocationPage from './pages/LocationPage';
-import NewsletterPage from './pages/NewsletterPage';
+// import NewsletterPage from './pages/NewsletterPage'
 
 function App() {
     return (
@@ -37,7 +37,7 @@ function App() {
                         {/* <Route path="/sacraments" element={<SacramentsPage />} /> */}
                         <Route path="/mass-ordinary" element={<MassOrdinaryPage />} />
                         <Route path="/location" element={<LocationPage />} />
-                        <Route path="/newsletter" element={<NewsletterPage />} />
+                        {/* <Route path="/newsletter" element={<NewsletterPage />} /> */}
                     </Routes>
                 </Layout>
             </Router>
