@@ -5,7 +5,7 @@ const NewsletterPage = () => {
         <Box minH="100vh" position="relative" overflow="hidden">
             <Box position="absolute" top="0" left="0" right="0" height="100vh" overflow="auto">
                 <iframe
-                    src="http://www.ap1.or.kr/bbs/board.php?bo_table=newsletter"
+                    src="https://www.ap1.or.kr/bbs/board.php?bo_table=newsletter"
                     style={{
                         width: '100%',
                         height: '100%',
