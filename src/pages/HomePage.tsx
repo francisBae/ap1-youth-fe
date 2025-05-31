@@ -1,8 +1,11 @@
-import { Box, Container, Heading, Text, SimpleGrid, VStack, Icon, Divider } from '@chakra-ui/react';
+import { Box, Container, Heading, Text, SimpleGrid, VStack, Icon, Divider, Skeleton } from '@chakra-ui/react';
 import { FaChurch, FaNewspaper, FaClock, FaUsers } from 'react-icons/fa';
 import { Link as RouterLink } from 'react-router-dom';
+import { useState } from 'react';
 
 const HomePage = () => {
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
+
     const features = [
         {
             icon: FaChurch,
@@ -55,22 +58,44 @@ const HomePage = () => {
 
             {/* 히어로 섹션 */}
             <Box
-                bgImage="url('https://res.cloudinary.com/dtwnsrsz5/image/upload/w_600/v1733134060/ap1youth/images/main/uuuu1yuforc0ovdptt2u.jpg')"
-                /*
-        'https://res.cloudinary.com/dtwnsrsz5/image/upload/w_600/v1733134060/ap1youth/images/main/dcrzatamo2i5vub2ojbc.jpg'
-        'https://res.cloudinary.com/dtwnsrsz5/image/upload/w_600/v1733134060/ap1youth/images/main/kibwdfn0qltmjeftammk.jpg',
-	'https://res.cloudinary.com/dtwnsrsz5/image/upload/w_600/v1733134060/ap1youth/images/main/e6uqxzdhjq4wglfuwc6k.jpg',
-	'https://res.cloudinary.com/dtwnsrsz5/image/upload/w_600/v1733134060/ap1youth/images/main/uuuu1yuforc0ovdptt2u.jpg',
-	'https://res.cloudinary.com/dtwnsrsz5/image/upload/w_600/v1733134061/ap1youth/images/main/mkpgqujzew7yv5e7aryy.jpg'
-        */
-                bgSize="cover"
-                bgPosition="center"
+                position="relative"
                 minH={{ base: '40vh', md: '55vh' }}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
-                position="relative"
             >
+                {!isImageLoaded && (
+                    <Skeleton
+                        position="absolute"
+                        top={0}
+                        left={0}
+                        w="100%"
+                        h="100%"
+                        startColor="gray.100"
+                        endColor="gray.300"
+                    />
+                )}
+                <Box
+                    position="absolute"
+                    top={0}
+                    left={0}
+                    w="100%"
+                    h="100%"
+                    overflow="hidden"
+                >
+                    <img
+                        src="https://res.cloudinary.com/dtwnsrsz5/image/upload/w_600/v1733134060/ap1youth/images/main/uuuu1yuforc0ovdptt2u.jpg"
+                        alt="압구정1동 성당 청년부 히어로 이미지"
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            opacity: isImageLoaded ? 1 : 0,
+                            transition: 'opacity 0.3s ease-in-out'
+                        }}
+                        onLoad={() => setIsImageLoaded(true)}
+                    />
+                </Box>
                 <Container maxW="container.lg" position="relative" zIndex={2}>
                     <VStack
                         spacing={6}
