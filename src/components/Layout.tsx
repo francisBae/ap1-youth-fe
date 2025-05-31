@@ -57,7 +57,7 @@ const Layout = ({ children }: LayoutProps) => {
         { label: '단체 소개', href: '/groups' },
         { label: '갤러리', href: '/gallery' },
         // { label: '기도문', href: '/prayers' },
-        { label: '오시는 길', href: '/location' },
+        { label: '오시는 길', href: 'http://www.ap1.or.kr/location.php', isExternal: true },
     ];
 
     return (
@@ -96,13 +96,12 @@ const Layout = ({ children }: LayoutProps) => {
                         <Stack direction="row" spacing={8} display={{ base: 'none', md: 'flex' }}>
                             {menuItems.map((item) => {
                                 const isActive = location.pathname === item.href;
-                                // '오시는 길'만 외부 링크로 새 창 열기
-                                if (item.label === '오시는 길') {
+                                if (item.isExternal) {
                                     return (
                                         <Button
                                             key={item.href}
                                             as="a"
-                                            href="http://www.ap1.or.kr/location.php"
+                                            href={item.href}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             variant="ghost"
@@ -139,18 +138,17 @@ const Layout = ({ children }: LayoutProps) => {
                                         </Button>
                                     );
                                 }
-                                // 나머지는 내부 라우팅
                                 return (
                                     <Button
                                         key={item.href}
+                                        as={RouterLink}
+                                        to={item.href}
                                         variant="ghost"
                                         color={isActive ? accentColor : '#6b4f27'}
                                         fontFamily="'Noto Sans KR', sans-serif"
                                         fontWeight={isActive ? '600' : '500'}
                                         letterSpacing="-0.02em"
                                         fontSize="md"
-                                        as={RouterLink}
-                                        to={item.href}
                                         bg="transparent"
                                         position="relative"
                                         _after={{
@@ -245,17 +243,48 @@ const Layout = ({ children }: LayoutProps) => {
                             >
                                 {menuItems.map((item) => {
                                     const isActive = location.pathname === item.href;
+                                    if (item.isExternal) {
+                                        return (
+                                            <Button
+                                                key={item.href}
+                                                as="a"
+                                                href={item.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                variant="ghost"
+                                                color={isActive ? accentColor : '#6b4f27'}
+                                                fontFamily="'Noto Sans KR', sans-serif"
+                                                fontWeight={isActive ? '600' : '500'}
+                                                letterSpacing="-0.02em"
+                                                fontSize="md"
+                                                onClick={onClose}
+                                                justifyContent="center"
+                                                px={4}
+                                                py={5}
+                                                borderRadius={0}
+                                                bg={isActive ? `${accentColor}10` : 'transparent'}
+                                                _hover={{
+                                                    color: accentColor,
+                                                    bg: `${accentColor}10`,
+                                                    textDecoration: 'none',
+                                                }}
+                                                transition="all 0.2s ease-in-out"
+                                            >
+                                                {item.label}
+                                            </Button>
+                                        );
+                                    }
                                     return (
                                         <Button
                                             key={item.href}
+                                            as={RouterLink}
+                                            to={item.href}
                                             variant="ghost"
                                             color={isActive ? accentColor : '#6b4f27'}
                                             fontFamily="'Noto Sans KR', sans-serif"
                                             fontWeight={isActive ? '600' : '500'}
                                             letterSpacing="-0.02em"
                                             fontSize="md"
-                                            as={RouterLink}
-                                            to={item.href}
                                             onClick={onClose}
                                             justifyContent="center"
                                             px={4}
