@@ -68,7 +68,7 @@ const Layout = ({ children }: LayoutProps) => {
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
-                                    <rect x="12" y="3" width="4" height="22" rx="2" fill="#bfa16c" />
+                                    <rect x="12" y="3" width="4" height="26" rx="2" fill="#bfa16c" />
                                     <rect x="3" y="12" width="22" height="4" rx="2" fill="#bfa16c" />
                                 </svg>
                             </Box>
