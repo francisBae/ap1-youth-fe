@@ -55,7 +55,7 @@ const Layout = ({ children }: LayoutProps) => {
         // { label: '성사 안내', href: '/sacraments' },
         { label: '미사통상문', href: '/mass-ordinary' },
         { label: '단체 소개', href: '/groups' },
-        { label: '갤러리', href: '/gallery' },
+        // { label: '갤러리', href: '/gallery' },
         // { label: '기도문', href: '/prayers' },
         { label: '오시는 길', href: 'http://www.ap1.or.kr/location.php', isExternal: true },
     ];

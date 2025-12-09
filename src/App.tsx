@@ -51,7 +51,7 @@ function App() {
                             <Route path="/groups/liturgy" element={<LiturgyPage />} />
                             <Route path="/groups/choir" element={<ChoirPage />} />
                             <Route path="/groups/legio" element={<LegioPage />} />
-                            <Route path="/gallery" element={<GalleryPage />} />
+                            {/* <Route path="/gallery" element={<GalleryPage />} /> */}
                             <Route path="/prayers" element={<PrayersPage />} />
                             {/* <Route path="/sacraments" element={<SacramentsPage />} /> */}
                             <Route path="/mass-ordinary" element={<MassOrdinaryPage />} />
