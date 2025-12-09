@@ -286,41 +286,118 @@ const WelcomePage = () => {
                                     justifyContent="center"
                                     alignItems="center"
                                 >
-                                    {/* 배경 장식 */}
-                                    <Box
-                                        position="absolute"
-                                        top="20px"
-                                        right="20px"
-                                        opacity={0.2}
+                                    {/* 배경 장식 - 애니메이션 눈송이 */}
+                                    <motion.div
+                                        style={{
+                                            position: 'absolute',
+                                            top: '20px',
+                                            right: '20px',
+                                        }}
+                                        animate={{
+                                            rotate: [0, 360],
+                                            scale: [1, 1.2, 1],
+                                            opacity: [0.2, 0.4, 0.2],
+                                        }}
+                                        transition={{
+                                            duration: 3,
+                                            repeat: Infinity,
+                                            ease: 'easeInOut',
+                                        }}
                                     >
                                         <Icon as={FaSnowflake} w={8} h={8} color="white" />
-                                    </Box>
-                                    <Box
-                                        position="absolute"
-                                        bottom="20px"
-                                        left="20px"
-                                        opacity={0.2}
+                                    </motion.div>
+                                    <motion.div
+                                        style={{
+                                            position: 'absolute',
+                                            bottom: '20px',
+                                            left: '20px',
+                                        }}
+                                        animate={{
+                                            rotate: [360, 0],
+                                            scale: [1, 1.15, 1],
+                                            opacity: [0.2, 0.35, 0.2],
+                                        }}
+                                        transition={{
+                                            duration: 4,
+                                            repeat: Infinity,
+                                            ease: 'easeInOut',
+                                            delay: 0.5,
+                                        }}
                                     >
                                         <Icon as={FaSnowflake} w={6} h={6} color="white" />
-                                    </Box>
-                                    <Box
-                                        position="absolute"
-                                        top="40px"
-                                        left="30px"
-                                        opacity={0.15}
+                                    </motion.div>
+                                    <motion.div
+                                        style={{
+                                            position: 'absolute',
+                                            top: '40px',
+                                            left: '30px',
+                                        }}
+                                        animate={{
+                                            rotate: [0, -360],
+                                            y: [0, 10, 0],
+                                            opacity: [0.15, 0.3, 0.15],
+                                        }}
+                                        transition={{
+                                            duration: 2.5,
+                                            repeat: Infinity,
+                                            ease: 'easeInOut',
+                                            delay: 1,
+                                        }}
                                     >
                                         <Icon as={FaSnowflake} w={5} h={5} color="white" />
-                                    </Box>
+                                    </motion.div>
 
-                                    {/* 크리스마스 트리 */}
+                                    {/* 트리 주변 빛나는 효과 */}
+                                    <motion.div
+                                        style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                            width: '200px',
+                                            height: '200px',
+                                            borderRadius: '50%',
+                                            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
+                                            pointerEvents: 'none',
+                                        }}
+                                        animate={{
+                                            scale: [1, 1.3, 1],
+                                            opacity: [0.3, 0.6, 0.3],
+                                        }}
+                                        transition={{
+                                            duration: 2,
+                                            repeat: Infinity,
+                                            ease: 'easeInOut',
+                                        }}
+                                    />
+
+                                    {/* 크리스마스 트리 - 흔들림 효과 */}
                                     <motion.div
                                         initial={{ scale: 0, rotate: -180 }}
-                                        animate={{ scale: 1, rotate: 0 }}
+                                        animate={{
+                                            scale: 1,
+                                            rotate: 0,
+                                            y: [0, -5, 0],
+                                        }}
                                         transition={{
-                                            duration: 1,
-                                            delay: 1.5,
-                                            type: 'spring',
-                                            stiffness: 150,
+                                            scale: {
+                                                duration: 1,
+                                                delay: 1.5,
+                                                type: 'spring',
+                                                stiffness: 150,
+                                            },
+                                            rotate: {
+                                                duration: 1,
+                                                delay: 1.5,
+                                                type: 'spring',
+                                                stiffness: 150,
+                                            },
+                                            y: {
+                                                duration: 3,
+                                                repeat: Infinity,
+                                                ease: 'easeInOut',
+                                                delay: 2.5,
+                                            },
                                         }}
                                     >
                                         <ChristmasTree size={140} />
@@ -336,17 +413,46 @@ const WelcomePage = () => {
                                                 delay: 2,
                                             }}
                                         >
-                                            <HStack justify="center" spacing={3}>
-                                                <Icon as={FaSnowflake} w={5} h={5} color="white" />
+                                            <HStack justify="center" spacing={3} align="center">
+                                                <motion.div
+                                                    style={{ display: 'flex', alignItems: 'center' }}
+                                                    animate={{
+                                                        rotate: [0, 360],
+                                                        scale: [1, 1.2, 1],
+                                                    }}
+                                                    transition={{
+                                                        duration: 2,
+                                                        repeat: Infinity,
+                                                        ease: 'easeInOut',
+                                                        delay: 2.5,
+                                                    }}
+                                                >
+                                                    <Icon as={FaSnowflake} w={5} h={5} color="white" />
+                                                </motion.div>
                                                 <Heading
                                                     size={{ base: 'xl', md: '2xl' }}
                                                     color="white"
                                                     fontWeight="bold"
                                                     letterSpacing="wide"
+                                                    lineHeight="1.2"
                                                 >
                                                     청년 성탄 송년 행사
                                                 </Heading>
-                                                <Icon as={FaSnowflake} w={5} h={5} color="white" />
+                                                <motion.div
+                                                    style={{ display: 'flex', alignItems: 'center' }}
+                                                    animate={{
+                                                        rotate: [360, 0],
+                                                        scale: [1, 1.2, 1],
+                                                    }}
+                                                    transition={{
+                                                        duration: 2,
+                                                        repeat: Infinity,
+                                                        ease: 'easeInOut',
+                                                        delay: 2.7,
+                                                    }}
+                                                >
+                                                    <Icon as={FaSnowflake} w={5} h={5} color="white" />
+                                                </motion.div>
                                             </HStack>
                                         </motion.div>
                                         <motion.div
@@ -389,7 +495,7 @@ const WelcomePage = () => {
                                                 }}
                                             >
                                                 <Box>
-                                                    <HStack spacing={4} align="flex-start">
+                                                    <HStack spacing={4} align="center">
                                                         <motion.div
                                                             initial={{ scale: 0, rotate: -180 }}
                                                             animate={{ scale: 1, rotate: 0 }}
@@ -399,6 +505,7 @@ const WelcomePage = () => {
                                                                 type: 'spring',
                                                                 stiffness: 200,
                                                             }}
+                                                            style={{ display: 'flex', alignItems: 'center' }}
                                                         >
                                                             <Flex
                                                                 align="center"
@@ -417,13 +524,14 @@ const WelcomePage = () => {
                                                                 />
                                                             </Flex>
                                                         </motion.div>
-                                                        <VStack align="flex-start" spacing={1} flex={1}>
+                                                        <VStack align="flex-start" spacing={1} flex={1} justify="center">
                                                             <Text
                                                                 fontSize={{ base: 'xs', md: 'sm' }}
                                                                 color="gray.500"
                                                                 fontWeight="semibold"
                                                                 letterSpacing="wide"
                                                                 textTransform="uppercase"
+                                                                lineHeight="1.2"
                                                             >
                                                                 {info.label}
                                                             </Text>
@@ -432,6 +540,7 @@ const WelcomePage = () => {
                                                                 color="gray.800"
                                                                 fontWeight="bold"
                                                                 whiteSpace="pre-line"
+                                                                lineHeight="1.4"
                                                             >
                                                                 {info.value}
                                                             </Text>
