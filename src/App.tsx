@@ -20,6 +20,7 @@ const PrayersPage = lazy(() => import('./pages/PrayersPage'));
 // import NewsletterPage from './pages/NewsletterPage'
 const MassOrdinaryPage = lazy(() => import('./pages/MassOrdinaryPage'));
 const LocationPage = lazy(() => import('./pages/LocationPage'));
+const WelcomePage = lazy(() => import('./pages/WelcomePage'));
 
 // 로딩 스피너 컴포넌트
 const LoadingSpinner = () => (
@@ -55,6 +56,7 @@ function App() {
                             {/* <Route path="/sacraments" element={<SacramentsPage />} /> */}
                             <Route path="/mass-ordinary" element={<MassOrdinaryPage />} />
                             <Route path="/location" element={<LocationPage />} />
+                            <Route path="/welcome" element={<WelcomePage />} />
                             {/* <Route path="/newsletter" element={<NewsletterPage />} /> */}
                         </Routes>
                     </Suspense>
