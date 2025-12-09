@@ -14,7 +14,7 @@ import {
     Center,
     Button,
 } from '@chakra-ui/react';
-import { FaCalendarAlt, FaMapMarkerAlt, FaGift, FaSnowflake } from 'react-icons/fa';
+import { FaCalendarAlt, FaMapMarkerAlt, FaSnowflake } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 // 크리스마스 트리 SVG 컴포넌트 (더 사실적으로)
@@ -143,7 +143,7 @@ const ChristmasTree = ({ size = 120 }: { size?: number }) => (
 const WelcomePage = () => {
     const cardBg = useColorModeValue('white', 'gray.800');
     const gradientBg = useColorModeValue(
-        'linear(to-br, #fffbe6, #ffe4e1, #e8f4f8)',
+        'linear(to-br, #fff8f0, #ffe8e8, #f0fff0)',
         'linear(to-br, #1a202c, #2d3748)'
     );
 
@@ -152,13 +152,13 @@ const WelcomePage = () => {
             icon: FaCalendarAlt,
             label: '일시',
             value: '2025년 12월 28일(일)\n저녁 6시 청년미사 후',
-            color: '#bfa16c',
+            color: '#DC143C', // 크리스마스 빨강
         },
         {
             icon: FaMapMarkerAlt,
             label: '장소',
             value: '압구정1동 성당 2층 파티마홀',
-            color: '#d4a574',
+            color: '#228B22', // 크리스마스 초록
         },
     ];
 
@@ -179,7 +179,7 @@ const WelcomePage = () => {
                 w="200px"
                 h="200px"
                 borderRadius="50%"
-                bg="rgba(191, 161, 108, 0.1)"
+                bg="rgba(220, 20, 60, 0.15)"
                 filter="blur(40px)"
             />
             <Box
@@ -189,7 +189,7 @@ const WelcomePage = () => {
                 w="200px"
                 h="200px"
                 borderRadius="50%"
-                bg="rgba(212, 165, 116, 0.1)"
+                bg="rgba(34, 139, 34, 0.15)"
                 filter="blur(40px)"
             />
 
@@ -202,7 +202,7 @@ const WelcomePage = () => {
                         top: `${Math.random() * 100}%`,
                         left: `${Math.random() * 100}%`,
                         fontSize: `${Math.random() * 20 + 15}px`,
-                        color: 'rgba(191, 161, 108, 0.3)',
+                        color: 'rgba(220, 20, 60, 0.4)',
                         pointerEvents: 'none',
                         zIndex: 0,
                     }}
@@ -270,12 +270,12 @@ const WelcomePage = () => {
                                 boxShadow="2xl"
                                 overflow="hidden"
                                 border="2px solid"
-                                borderColor="rgba(191, 161, 108, 0.3)"
+                                borderColor="rgba(220, 20, 60, 0.3)"
                                 position="relative"
                             >
                                 {/* 엽서 앞면 - 크리스마스 트리와 타이틀 */}
                                 <Box
-                                    bgGradient="linear(to-br, #bfa16c, #d4a574, #c9a96b)"
+                                    bgGradient="linear(to-br, #DC143C, #C41E3A, #228B22)"
                                     py={{ base: 8, md: 12 }}
                                     px={{ base: 6, md: 8 }}
                                     textAlign="center"
@@ -512,7 +512,7 @@ const WelcomePage = () => {
                                                         href="#" // 추후 구글 폼 링크로 변경
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        bgGradient="linear(to-r, #bfa16c, #d4a574)"
+                                                        bgGradient="linear(to-r, #DC143C, #C41E3A)"
                                                         color="white"
                                                         size={{ base: 'md', md: 'lg' }}
                                                         fontSize={{ base: 'md', md: 'lg' }}
@@ -522,7 +522,7 @@ const WelcomePage = () => {
                                                         borderRadius="xl"
                                                         boxShadow="md"
                                                         _hover={{
-                                                            bgGradient: 'linear(to-r, #d4a574, #bfa16c)',
+                                                            bgGradient: 'linear(to-r, #C41E3A, #DC143C)',
                                                             transform: 'translateY(-2px)',
                                                             boxShadow: 'lg',
                                                         }}
@@ -565,7 +565,7 @@ const WelcomePage = () => {
                         borderRadius="2xl"
                         boxShadow="xl"
                         border="1px solid"
-                        borderColor="rgba(191, 161, 108, 0.2)"
+                        borderColor="rgba(220, 20, 60, 0.2)"
                         mt={8}
                         maxW="600px"
                         mx="auto"
