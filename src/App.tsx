@@ -15,7 +15,7 @@ const UnionPage = lazy(() => import('./pages/groups/UnionPage'));
 const LiturgyPage = lazy(() => import('./pages/groups/LiturgyPage'));
 const ChoirPage = lazy(() => import('./pages/groups/ChoirPage'));
 const LegioPage = lazy(() => import('./pages/groups/LegioPage'));
-const GalleryPage = lazy(() => import('./pages/GalleryPage'));
+// const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 const PrayersPage = lazy(() => import('./pages/PrayersPage'));
 // import NewsletterPage from './pages/NewsletterPage'
 const MassOrdinaryPage = lazy(() => import('./pages/MassOrdinaryPage'));
