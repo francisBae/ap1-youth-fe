@@ -80,7 +80,7 @@ const WelcomePage = () => {
     const eventInfo = [
         {
             icon: FaCalendarAlt,
-            label: '일시',
+            label: '날짜',
             value: '2025년 12월 28일(일)',
         },
         {
