@@ -10,10 +10,63 @@ import {
     Center,
     Button,
 } from '@chakra-ui/react';
-import { FaCalendarAlt, FaMapMarkerAlt, FaClock, FaSnowflake } from 'react-icons/fa';
+import { FaCalendarAlt, FaMapMarkerAlt, FaClock, FaSnowflake, FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 const WelcomePage = () => {
+    const audioRef = useRef<HTMLAudioElement>(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [hasInteracted, setHasInteracted] = useState(false);
+
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = 0.5;
+        }
+    }, []);
+
+    // 페이지 어디든 클릭/터치 시 자동 재생 시작
+    useEffect(() => {
+        const handleUserInteraction = () => {
+            if (!hasInteracted) {
+                setHasInteracted(true);
+                // 첫 상호작용 시 자동 재생
+                if (audioRef.current && !isPlaying) {
+                    audioRef.current.play()
+                        .then(() => {
+                            setIsPlaying(true);
+                        })
+                        .catch((error) => {
+                            console.log('Auto-play failed:', error);
+                        });
+                }
+            }
+        };
+
+        document.addEventListener('click', handleUserInteraction, { once: true });
+        document.addEventListener('touchstart', handleUserInteraction, { once: true });
+
+        return () => {
+            document.removeEventListener('click', handleUserInteraction);
+            document.removeEventListener('touchstart', handleUserInteraction);
+        };
+    }, [hasInteracted, isPlaying]);
+
+    const toggleAudio = () => {
+        if (audioRef.current) {
+            const newPlayingState = !isPlaying;
+            setIsPlaying(newPlayingState);
+            
+            if (newPlayingState) {
+                audioRef.current.play().catch((error) => {
+                    console.log('Audio play failed:', error);
+                    setIsPlaying(false);
+                });
+            } else {
+                audioRef.current.pause();
+            }
+        }
+    };
     // 어두운 파란색 격자 무늬 배경
     const plaidBg = {
         background: '#1a1a3e',
@@ -59,17 +112,62 @@ const WelcomePage = () => {
     }));
 
     return (
-        <Box
-            minH="100vh"
-            style={plaidBg}
-            py={{ base: 6, md: 10 }}
-            px={{ base: 4, md: 6 }}
-            position="relative"
-            overflow="hidden"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-        >
+        <>
+            {/* 배경 음악 */}
+            <audio
+                ref={audioRef}
+                loop
+                style={{ display: 'none' }}
+            >
+                <source src="/welcome/audio/We_Wish_You_a_Merry_Christmas_Jazz.mp3" type="audio/mpeg" />
+            </audio>
+
+            <Box
+                minH="100vh"
+                style={plaidBg}
+                py={{ base: 6, md: 10 }}
+                px={{ base: 4, md: 6 }}
+                position="relative"
+                overflow="hidden"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+            >
+                {/* 오디오 on/off 버튼 */}
+                <Box
+                    position="fixed"
+                    top={{ base: '16px', md: '20px' }}
+                    right={{ base: '16px', md: '20px' }}
+                    zIndex={1000}
+                >
+                    <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        <Button
+                            onClick={toggleAudio}
+                            bg="rgba(255, 255, 255, 0.9)"
+                            color={isPlaying ? '#228B22' : '#666'}
+                            size={{ base: 'md', md: 'lg' }}
+                            borderRadius="full"
+                            boxShadow="lg"
+                            _hover={{
+                                bg: 'white',
+                                transform: 'scale(1.05)',
+                            }}
+                            w={{ base: '48px', md: '56px' }}
+                            h={{ base: '48px', md: '56px' }}
+                            p={0}
+                            minW="auto"
+                        >
+                            <Icon
+                                as={isPlaying ? FaVolumeUp : FaVolumeMute}
+                                w={{ base: 5, md: 6 }}
+                                h={{ base: 5, md: 6 }}
+                            />
+                        </Button>
+                    </motion.div>
+                </Box>
             {/* 배경 눈송이 애니메이션 */}
             {snowflakes.map((snowflake) => (
                 <motion.div
@@ -428,6 +526,7 @@ const WelcomePage = () => {
                 </Center>
             </Container>
         </Box>
+        </>
     );
 };
 
