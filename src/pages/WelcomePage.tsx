@@ -86,12 +86,12 @@ const WelcomePage = () => {
         {
             icon: FaClock,
             label: '시간',
-            value: '저녁 6시 청년미사 후 (7시)',
+            value: '저녁 6시 청년미사 후',
         },
         {
             icon: FaMapMarkerAlt,
             label: '장소',
-            value: '압구정1동 성당 2층 파티마홀',
+            value: '본당 2층 파티마홀',
         },
     ];
 
@@ -324,14 +324,14 @@ const WelcomePage = () => {
                                                     ✦
                                                 </Text>
                                                 <Heading
-                                                    size={{ base: '2xl', md: '3xl' }}
+                                                    size={{ base: '3xl', md: '3xl' }}
                                                     color="white"
                                                     fontWeight="bold"
                                                     fontStyle="italic"
                                                     letterSpacing="wide"
-                                                    fontFamily="cursive, serif"
+                                                    fontFamily="'Great Vibes', 'Dancing Script', 'Brush Script MT', 'Lucida Handwriting', cursive, serif"
                                                 >
-                                                    Christmas.
+                                                    Christmas
                                                 </Heading>
                                                 <Text fontSize="2xl" color="white" fontWeight="bold">
                                                     ✦
