@@ -60,6 +60,14 @@ const Layout = ({ children }: LayoutProps) => {
         { label: '오시는 길', href: 'http://www.ap1.or.kr/location.php', isExternal: true },
     ];
 
+    if (location.pathname === '/welcome') {
+        return (
+            <Box minH="100vh">
+                {children}
+            </Box>
+        );
+    }
+
     return (
         <Box minH="100vh">
             {/* 헤더 */}
